@@ -86,7 +86,11 @@ public class Dinosaurs {
             putItemResult = dynamoDB.putItem(putItemRequest);
             System.out.println("Result: " + putItemResult);
 
-            // Scan items for movies with a year attribute greater than 1985
+            item = newItem("Stegosaurus", 2020, "Lots of spikes");
+            putItemRequest = new PutItemRequest(tableName, item);
+            putItemResult = dynamoDB.putItem(putItemRequest);
+            System.out.println("Result: " + putItemResult);
+            
             HashMap<String, Condition> scanFilter = new HashMap<String, Condition>();
             Condition condition = new Condition()
                 .withComparisonOperator(ComparisonOperator.GT.toString())
@@ -112,7 +116,7 @@ public class Dinosaurs {
         }
     }
 
-    private static Map<String, AttributeValue> newItem(String name, int year, String rating, String... fans) {
+    private static Map<String, AttributeValue> newItem(String name, int year, String rating) {
         Map<String, AttributeValue> item = new HashMap<String, AttributeValue>();
         item.put("name", new AttributeValue(name));
         item.put("year", new AttributeValue().withN(Integer.toString(year)));
